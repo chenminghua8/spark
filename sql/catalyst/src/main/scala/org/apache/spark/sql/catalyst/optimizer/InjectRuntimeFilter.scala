@@ -192,7 +192,7 @@ object InjectRuntimeFilter extends Rule[LogicalPlan] with PredicateHelper with J
     // filter to each small task might be more costly than scanning them itself. Thus, we use max
     // rather than sum here.
     val maxScanSize = maxScanByteSize(filterApplicationSide)
-    maxScanSize >=
+    maxScanSize < 0 || maxScanSize >=
       conf.getConf(SQLConf.RUNTIME_BLOOM_FILTER_APPLICATION_SIDE_SCAN_SIZE_THRESHOLD)
   }
 
